@@ -1,0 +1,11 @@
+# data.yaml
+# Paths are relative to the 'bone_fracture_detector' root folder
+train: ./train/images
+val: ./valid/images
+test: ./test/images
+
+# Number of classes
+nc: 6
+
+# Class names (from your new dataset)
+names: ['elbow positive', 'fingers positive', 'forearm fracture', 'humerus fracture', 'shoulder fracture', 'wrist positive']

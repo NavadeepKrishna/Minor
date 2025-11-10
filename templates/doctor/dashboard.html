@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">👨‍⚕️ Doctor Dashboard: Cases Awaiting Review</h2>
+    <p class="lead text-center">Below are scans that require your professional diagnosis or are currently in review.</p>
+
+    {% if scans %}
+    <div class="row">
+        {% for scan in scans %}
+        <div class="col-md-6 mb-4">
+            <div class="card shadow h-100 
+                {% if scan.status == 'Pending' %}border-warning{% elif scan.status == 'In Review' %}border-primary{% else %}border-secondary{% endif %}">
+                
+                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Scan ID: {{ scan.id }} 
+                        <span class="badge bg-secondary ms-2">Patient: {{ scan.patient.username }}</span>
+                    </h5>
+                    <span class="badge 
+                        {% if scan.status == 'Pending' %}bg-warning text-dark{% elif scan.status == 'In Review' %}bg-primary{% else %}bg-secondary{% endif %} 
+                        fs-6">{{ scan.status }}</span>
+                </div>
+                
+                <div class="card-body">
+                    <p><strong>Submitted On:</strong> {{ scan.timestamp.strftime('%Y-%m-%d %H:%M') }}</p>
+                    
+                    <hr>
+                    <p class="mb-1"><strong>AI (YOLO) Prediction:</strong> 
+                        <span class="fw-bold 
+                            {% if 'Fracture' in scan.yolo_result %}text-danger{% else %}text-success{% endif %}">
+                            {{ scan.yolo_result }} 
+                        </span>
+                        (Confidence: {{ "%.1f"|format(scan.yolo_confidence * 100) }}%)
+                    </p>
+                    
+                    {% if scan.status in ['Fracture Detected', 'No Fracture', 'Inconclusive'] %}
+                        <div class="mt-3 alert alert-success">Diagnosis Complete.</div>
+                    {% else %}
+                         <a href="{{ url_for('main.review_scan', scan_id=scan.id) }}" class="btn btn-primary btn-lg w-100 mt-3">
+                            <i class="fas fa-file-signature"></i> CHECK IMAGE & REVIEW
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-success text-center mt-5" role="alert">
+        🎉 All clear! You have no pending scans assigned for review.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

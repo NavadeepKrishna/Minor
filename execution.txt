@@ -1,0 +1,33 @@
+1.
+flask shell
+2.
+doctor_role = Role.query.filter_by(name='doctor').first()
+username = 'DrAlex'
+password = 'doctorA1'
+if not User.query.filter_by(username=username).first():
+    new_doctor = User(username=username, role_id=doctor_role.id)
+    new_doctor.set_password(password)
+    db.session.add(new_doctor)
+    db.session.commit()
+    print(f"New doctor created: {username} (Password: {password})")
+else:
+    print(f"Doctor {username} already exists.")
+username = 'DrSmith'
+password = 'doctorS2'
+if not User.query.filter_by(username=username).first():
+    new_doctor = User(username=username, role_id=doctor_role.id)
+    new_doctor.set_password(password)
+    db.session.add(new_doctor)
+    db.session.commit()
+    print(f"New doctor created: {username} (Password: {password})")
+else:
+    print(f"Doctor {username} already exists.")
+exit()
+3.
+flask run
+4.Doctor login
+username:DrTest
+pass:doctorpass
+5.user login
+username:Navadeep02
+pass:firstuserlogin

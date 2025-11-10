@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">⚙️ Administrator Dashboard</h2>
+    <p class="lead text-center">System Overview and Management</p>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card text-center bg-info text-white shadow-lg p-3">
+                <i class="fas fa-users fa-3x mb-2"></i>
+                <h4 class="card-title">{{ users|length }} Total Users</h4>
+                <p class="card-text">View and manage accounts.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center bg-warning text-dark shadow-lg p-3">
+                <i class="fas fa-file-medical fa-3x mb-2"></i>
+                {% set total_scans = (users|map(attribute='scans_submitted')|sum(start=[]))|length %}
+                <h4 class="card-title">{{ total_scans }} Total Scans</h4>
+                <p class="card-text">Audit scan history.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center bg-success text-white shadow-lg p-3">
+                <i class="fas fa-user-md fa-3x mb-2"></i>
+                {% set doctor_count = users|selectattr('role.name', 'equalto', 'doctor')|list|length %}
+                <h4 class="card-title">{{ doctor_count }} Doctors Available</h4>
+                <p class="card-text">Manage doctor assignments.</p>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="mt-5">User List (For Management)</h4>
+    <table class="table table-striped table-hover shadow-sm">
+        <thead class="bg-dark text-white">
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Scans Submitted</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td><span class="badge 
+                    {% if user.role.name == 'admin' %}bg-danger{% elif user.role.name == 'doctor' %}bg-primary{% else %}bg-secondary{% endif %}">{{ user.role.name }}</span></td>
+                <td>{{ user.scans_submitted|length }}</td>
+                <td><a href="#" class="btn btn-sm btn-outline-info disabled">Edit/View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

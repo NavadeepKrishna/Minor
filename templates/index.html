@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="jumbotron-hero">
+        <h1 class="display-3 fw-bold text-primary mb-3">Welcome to Bone Check AI 🦴</h1>
+        <p class="lead mb-4 fs-5">
+            Upload X-rays securely, get an **instant, high-accuracy AI analysis**, and receive a rapid **doctor's final report**—all in one place.
+        </p>
+        <hr class="my-4">
+        
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-5 mb-3">
+                <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-xxl w-100 shadow-lg">
+                    <i class="fas fa-sign-in-alt me-2"></i> Access My Account (Log In)
+                </a>
+            </div>
+            <div class="col-lg-5 mb-3">
+                <a href="{{ url_for('auth.register') }}" class="btn btn-success btn-xxl w-100 shadow-lg">
+                    <i class="fas fa-user-plus me-2"></i> Start New Patient Journey (Register)
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5 text-muted">
+        <div class="col-md-4">
+            <h4><i class="fas fa-brain text-info"></i> Instant AI Check</h4>
+            <p>Our YOLO Deep Learning model provides immediate fracture predictions.</p>
+        </div>
+        <div class="col-md-4">
+            <h4><i class="fas fa-user-md text-primary"></i> Doctor Confirmation</h4>
+            <p>Every scan is reviewed and finalized by a licensed medical doctor.</p>
+        </div>
+        <div class="col-md-4">
+            <h4><i class="fas fa-lock text-success"></i> Secure & Private</h4>
+            <p>Your medical data and reports are kept completely secure.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

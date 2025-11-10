@@ -1,0 +1,38 @@
+# MAIN FLASK APPLICATION
+BEGIN Bone_Fracture_Detection_System
+    INITIALIZE Flask app
+    CONFIGURE database (SQLite)
+    LOAD YOLOv8 model (best.pt)
+    # User Authentication
+    FUNCTION login(username, password)
+        QUERY database for user credentials
+        IF credentials valid THEN
+            CREATE user session
+            REDIRECT to dashboard
+        ELSE
+            RETURN error message
+        END IF
+    # Patient Functions
+    FUNCTION patient_upload_xray(image_file)
+        SAVE image to uploads folder
+        PREPROCESS image (resize, normalize)
+        PREDICT using YOLOv8 model
+        GENERATE bounding boxes and confidence scores
+        SAVE results to database
+        RETURN detection results
+    # Doctor Functions  
+    FUNCTION doctor_view_cases()
+        QUERY database for assigned cases
+        DISPLAY X-ray images with AI predictions
+        ENABLE diagnosis input form
+    FUNCTION submit_diagnosis(case_id, diagnosis, medication)
+        UPDATE database with doctor diagnosis
+        NOTIFY patient about report completion
+        RETURN success message
+    # Admin Functions
+    FUNCTION manage_users()
+        DISPLAY all users (patients, doctors)
+        ENABLE CRUD operations on user accounts
+        UPDATE user permissions and status
+END Bone_Fracture_Detection_System
+\end{lstlisting}

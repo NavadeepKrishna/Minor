@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg p-4">
+                <h2 class="text-center mb-4">📤 Step 1: Upload Your X-ray Image</h2>
+                <p class="text-center lead">Please use a clear, single X-ray image for the best results.</p>
+                
+                <form method="POST" enctype="multipart/form-data" action="{{ url_for('main.upload_scan') }}">
+                    <div class="mb-4">
+                        <label for="file_upload" class="form-label fs-5"><i class="fas fa-file-image"></i> Select Image File (e.g., JPEG or PNG):</label>
+                        <input type="file" name="file" id="file_upload" accept="image/jpeg, image/png" required 
+                               class="form-control form-control-lg">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-warning btn-xl w-100 mt-3">
+                        <i class="fas fa-search"></i> START CHECK & UPLOAD
+                    </button>
+                    <p class="text-center text-muted mt-3">Your image will be checked by our AI (YOLO), and then sent to a doctor for final confirmation.</p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
